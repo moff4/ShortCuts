@@ -16,11 +16,11 @@ def get_submodules(
     filenames = os.listdir(path)  # type: list[str]
     for filename in filenames:
         file = path.joinpath(filename)
-        if file.is_dir:
+        if file.is_dir():
             yield from get_submodules(file)
-        if file.is_file:
+        if file.is_file():
             if not any(file.name.startswith(x) for x in '._') and file.name.endswith('.py'):
-                yield file.name[:-3].replace('/', '.')  # 3 == len('.py')
+                yield str(file)[:-3].replace('/', '.')  # 3 == len('.py')
 
 
 def load_package(
@@ -34,6 +34,7 @@ def load_package(
     logger = logger or logging.getLogger(__name__)
     for module_name in get_submodules(path.replace('.', '/')):
         try:
+            print(module_name)
             importlib.import_module(module_name)
             # __import__(module_name)  # to import all classes
         except Exception as ex:
