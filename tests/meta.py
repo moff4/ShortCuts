@@ -1,7 +1,7 @@
 
 from unittest import TestCase
 
-from shortcuts.meta import create_collection_meta
+from mapping_shortcuts.meta import create_collection_meta
 
 
 class MetaTestCase(TestCase):

@@ -1,19 +1,19 @@
 
-# Shortcuts
+# Mapping Shortcuts
 
-python package for useful shortcuts
+python package with useful mapping shortcuts
 
 ## Contains  
 
- - Decorator factory for mapping
- - Metaclass factory for mapping
+ - Decorator for mapping factory
+ - Metaclass for mapping factory
  - Function for import all subpackages in package  
 
 ### Decorator factory for mapping
 
 ```python
 
-from shortcuts.decors import create_collector
+from mapping_shortcuts.decors import create_collector
 
 decorator, collection = create_collector(
     raise_on_duplicate=True,  # default: True
@@ -41,7 +41,7 @@ output: {
 
 ```python
 import abc
-from shortcuts.meta import create_collection_meta
+from mapping_shortcuts.meta import create_collection_meta
 
 MetaClass, collections = create_collection_meta(
     base=abc.ABCMeta,  # default: type
@@ -77,7 +77,7 @@ For exmaple with have five files:
 `app/tools.py` be like:
 
 ```python
-from shortcuts.decors import create_collector
+from mapping_shortcuts.decors import create_collector
 
 decorator, collection = create_collector()
 ```
@@ -103,7 +103,7 @@ def function_b():
 execute `load_package()`:
 ```python
 
-from shortcuts.dirtools import load_package
+from mapping_shortcuts.dirtools import load_package
 from app.tools import collection
 
 load_package('app.providers')

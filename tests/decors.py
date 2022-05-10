@@ -1,7 +1,7 @@
 
 from unittest import TestCase
 
-from shortcuts.decors import create_collector
+from mapping_shortcuts.decors import create_collector
 
 
 class DecorTestCase(TestCase):
