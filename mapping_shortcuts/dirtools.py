@@ -34,9 +34,8 @@ def load_package(
     logger = logger or logging.getLogger(__name__)
     for module_name in get_submodules(path.replace('.', '/')):
         try:
-            print(module_name)
+            logger.info('importing "%s"', module_name)
             importlib.import_module(module_name)
-            # __import__(module_name)  # to import all classes
         except Exception as ex:
             if raise_on_error:
                 raise ex from ex

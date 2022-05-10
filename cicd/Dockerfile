@@ -28,6 +28,6 @@ ENTRYPOINT cicd/entrypoint.sh $0 $@
 FROM python-base as prod
 WORKDIR /app
 COPY cicd/entrypoint.sh cicd/entrypoint.sh
-COPY shortcuts shortcuts
+COPY mapping_shortcuts mapping_shortcuts
 ENTRYPOINT cicd/entrypoint.sh $0 $@
 

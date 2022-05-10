@@ -1,5 +1,5 @@
 
-SERVICE_NAME=shortcuts
+SERVICE_NAME=mapping_shortcuts
 IMAGE_NAME=${SERVICE_NAME}
 TEST_IMAGE_NAME=${IMAGE_NAME}:test
 MYPY_FLAGS=--namespace-packages \

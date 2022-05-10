@@ -1,10 +1,11 @@
-
+# pylint: disable=redefined-builtin
 from typing import Any, Callable, Type, TypeVar
 
 KT = TypeVar('KT')
 T = TypeVar('T')
 MetaCls = Type[T]
 KeyGetter = Callable[[MetaCls[T]], KT]
+Filter = Callable[[MetaCls[T]], bool]
 
 
 def _meta_key_getter(obj: T) -> KT:
@@ -14,6 +15,7 @@ def _meta_key_getter(obj: T) -> KT:
 def create_collection_meta(
     base: MetaCls[T] = type,  # type: ignore
     getter: KeyGetter[T, KT] = _meta_key_getter,  # type: ignore
+    filter: Filter[T] = lambda x: True,
     raise_on_duplicate: bool = True
 ) -> tuple[MetaCls[T], dict[KT, MetaCls[T]]]:
     collection = {}  # type: dict[KT, MetaCls[T]]
