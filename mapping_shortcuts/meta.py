@@ -23,10 +23,11 @@ def create_collection_meta(
     class CollectionMeta(base):  # type: ignore
         def __new__(mcs, name: str, bases: tuple[MetaCls[T], ...], attrs: dict[str, Any]) -> MetaCls[T]:
             cls = super().__new__(mcs, name, bases, attrs)
-            key = getter(cls)
-            if key in collection and raise_on_duplicate:
-                raise ValueError(f'Duplication for key {key}')
-            collection[key] = cls
+            if filter(cls):
+                key = getter(cls)
+                if key in collection and raise_on_duplicate:
+                    raise ValueError(f'Duplication for key {key}')
+                collection[key] = cls
             return cls
 
     return CollectionMeta, collection

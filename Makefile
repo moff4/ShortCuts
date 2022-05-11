@@ -51,8 +51,17 @@ build: build_test test
 	docker build -t ${IMAGE_NAME}:prod -f cicd/Dockerfile --target=prod .
 	echo "Prod image build complete"
 
+build_wheel: test
+	python setup.py sdist bdist_wheel
+
+public: build_wheel
+	twine upload dist/*
+
 push:
 	docker push ${PROD_IMAGE_NAME}
 
 pull:
 	docker pull ${PROD_IMAGE_NAME}
+
+clear:
+	rm -rf dist build
