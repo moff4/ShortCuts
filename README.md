@@ -1,16 +1,21 @@
 
 # Mapping Shortcuts
 
+[![Build Status](https://app.travis-ci.com/moff4/ShortCuts.svg?branch=master)](https://app.travis-ci.com/moff4/ShortCuts)
+[![CodeFactor](https://www.codefactor.io/repository/github/moff4/shortcuts/badge)](https://www.codefactor.io/repository/github/moff4/shortcuts)
+
 python package with useful mapping shortcuts
 
 ## Contains  
 
- - Decorator for mapping factory
+ - Function decorator for mapping factory
+ - Class decorator for mapping factory
  - Metaclass for mapping factory
  - Function for import all subpackages in package  
 
 ### Decorator factory for mapping
 
+#### function decorator
 ```python
 
 from mapping_shortcuts.decors import create_collector
@@ -32,6 +37,34 @@ print(collection)
 output: {
     'key1': <function func1 at 0x104adc430>,
     'key2': <function func2 at 0x104adc4c0>,
+}
+'''
+
+```
+
+#### class decorator
+```python
+
+from mapping_shortcuts.decors import create_class_collector
+
+decorator, collection = create_class_collector(
+    raise_on_duplicate=True,  # default: True
+    key_getter=lambda x: x.key  # default: lambda x: x.__name__
+)
+
+@decorator
+class SomeClass1:
+    key = 123
+
+@decorator
+class SomeClass2:
+    key = 456 
+
+print(collection) 
+'''
+output: {
+    123: <class '__main__.SomeClass1'>,
+    456: <class '__main__.SomeClass2'>,
 }
 '''
 

@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 setuptools.setup(
     name='mapping_shortcuts',
-    version='1.0.1',
+    version='1.1.0',
     author='Komissarov Andrey',
     author_email='Komissar.off.andrey@gmail.com',
     description='Useful shortcuts for create mappings',
@@ -16,6 +16,7 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(),
     classifiers=[
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Operating System :: OS Independent',
     ],

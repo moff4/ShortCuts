@@ -5,7 +5,7 @@ TEST_IMAGE_NAME=${IMAGE_NAME}:test
 MYPY_FLAGS=--namespace-packages \
 	--ignore-missing-imports \
 	--no-implicit-reexport \
-	--python-version 3.10 \
+	--python-version 3.9 \
 	--warn-unreachable \
 	--warn-redundant-casts \
 	--warn-incomplete-stub \

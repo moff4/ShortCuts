@@ -1,14 +1,13 @@
 
-
 import logging
 import os
 import pathlib
-from typing import Iterable
+from typing import Iterable, Union, Optional
 import importlib
 
 
 def get_submodules(
-    path: str | pathlib.Path
+    path: Union[str, pathlib.Path]
 ) -> Iterable[str]:
     if isinstance(path, str):
         path = pathlib.Path(path)
@@ -25,7 +24,7 @@ def get_submodules(
 
 def load_package(
     path: str,
-    logger: logging.Logger | None = None,
+    logger: Optional[logging.Logger] = None,
     raise_on_error: bool = False,
 ) -> None:
     """
