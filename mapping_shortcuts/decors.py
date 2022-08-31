@@ -1,5 +1,5 @@
 
-from typing import TypeVar, Callable, Type, Union, cast
+from typing import Callable, Type, TypeVar, Union, cast
 
 KT = TypeVar('KT')
 VT = TypeVar('VT')

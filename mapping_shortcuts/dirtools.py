@@ -1,9 +1,9 @@
 
+import importlib
 import logging
 import os
 import pathlib
-from typing import Iterable, Union, Optional
-import importlib
+from typing import Iterable, Optional, Union
 
 
 def get_submodules(

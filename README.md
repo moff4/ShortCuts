@@ -6,12 +6,19 @@
 
 python package with useful mapping shortcuts
 
+## Installation
+
+``` bash
+pip install mapping-shortcuts
+```
+
 ## Contains  
 
  - Function decorator for mapping factory
  - Class decorator for mapping factory
  - Metaclass for mapping factory
  - Function for import all subpackages in package  
+ - CLI param parser and processor
 
 ### Decorator factory for mapping
 
@@ -147,4 +154,75 @@ output: {
     'B-func': <function function_b at 0x104cfa290>,
 }
 '''
+```
+
+### CLI param parser and processor
+
+
+```python
+
+from pydantic import BaseModel, Field
+
+from mapping_shortcuts.cli import cli_handler, process_sysargv
+
+
+@cli_handler('command1', desc='run handler for command1')
+def handler_1(args: dict[str, str | bool]) -> None:
+    print('command 1 handled!')
+
+
+class ArgModel(BaseModel):
+    x: int = Field(alias='--x', description='arg x')
+    y: int = Field(alias='--y', description='arg y')
+
+
+@cli_handler('command2', desc='sum X and Y', model=ArgModel)
+def handler_1(args) -> None:
+    print(f'{args.x=}')
+    print(f'{args.y=}')
+    print(f'result: {args.x + args.y}')
+
+
+@cli_handler('command3', desc='sum X and Y')
+def handler_1(args: ArgModel) -> None:
+    print(f'{args.x=}')
+    print(f'{args.y=}')
+    print(f'result: {args.x + args.y}')
+
+
+if __name__ == '__main__':
+    process_sysargv(
+        help_msg_header='That\'s my program!',
+        help_msg_run_cmd='python -m project',
+    )
+
+
+```
+
+Execution:
+
+```bash
+$ python script.py
+
+That's my program!
+usage: python -m project [options] [command]
+
+command:
+	help - see this cool msg again
+	command1 - run handler for command1
+	command2 - sum X and Y
+		--x - arg x
+		--y - arg y
+	command3 - sum X and Y
+		--x - arg x
+		--y - arg y
+
+```
+
+
+```bash
+$ python script.py command3 --x=123 --y=456
+args.x=123
+args.y=456
+result: 579
 ```

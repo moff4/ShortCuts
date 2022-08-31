@@ -6,6 +6,7 @@ authors = ["Andrey Komissarov"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pydantic = "^1.10.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.950"
