@@ -13,6 +13,7 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/moff4/shortcuts',
     install_requires=[
+	'pydantic>=1.10.0',
     ],
     packages=setuptools.find_packages(),
     classifiers=[
