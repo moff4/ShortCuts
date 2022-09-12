@@ -3,6 +3,7 @@
 
 [![Build Status](https://app.travis-ci.com/moff4/ShortCuts.svg?branch=master)](https://app.travis-ci.com/moff4/ShortCuts)
 [![CodeFactor](https://www.codefactor.io/repository/github/moff4/shortcuts/badge)](https://www.codefactor.io/repository/github/moff4/shortcuts)
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/komissarov)
 
 python package with useful mapping shortcuts
 
