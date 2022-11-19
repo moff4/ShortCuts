@@ -1,13 +1,14 @@
 import sys
-from typing import Callable, Type, Union, Optional
+from typing import Callable, Type, Union, Optional, TypeVar
 
 from pydantic import BaseModel  # pylint: disable=no-name-in-module
 
-from mapping_shortcuts.utils import first, parse_args, get_arg_types
+from mapping_shortcuts.utils import first, parse_args, get_arg_types, ParsedArgsType
 
 from . import consts
 
-CliHandler = Union[Callable[[BaseModel], None], Callable[[dict[str, Union[str, bool]]], None]]
+CliHandler = Union[Callable[[BaseModel], None], Callable[[ParsedArgsType], None]]
+ModelT = TypeVar('ModelT', bound=BaseModel)
 
 
 class Cmd(BaseModel):
@@ -43,6 +44,16 @@ def cli_handler(
     return decor
 
 
+def validate_args(model: Type[ModelT], params: ParsedArgsType) -> ModelT:
+    for key, props in model.schema()['properties'].items():
+        if key in params:
+            if props['type'] == 'array':
+                if not isinstance(params[key], list):
+                    params[key] = [params[key]]  # type: ignore[list-item]
+
+    return model(**params)
+
+
 def run_args(args: list[str]) -> None:
     raw_params = parse_args(args)
 
@@ -55,7 +66,7 @@ def run_args(args: list[str]) -> None:
 
     handler = CMD_HANDLERS[cmd]
     if handler.model:
-        validated_args = handler.model(**raw_params)
+        validated_args = validate_args(handler.model, raw_params)
         handler.func(validated_args)  # type: ignore[call-arg]
     else:
         handler.func(raw_params)  # type: ignore[call-arg]

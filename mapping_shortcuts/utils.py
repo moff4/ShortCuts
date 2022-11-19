@@ -3,16 +3,26 @@ from typing import Iterator, TypeVar, Union, Type, Callable, Any
 
 T = TypeVar('T')
 
+ParsedArgsType = dict[str, Union[str, bool, list[Union[str, bool]]]]
 
-def parse_args(args: list[str]) -> dict[str, Union[str, bool]]:
-    res = {}  # type: dict[str, str | bool]
+
+def parse_args(args: list[str]) -> ParsedArgsType:
+    res = {}  # type: ParsedArgsType
+
+    def insert(data: ParsedArgsType, key: str, value: Union[str, bool]) -> ParsedArgsType:
+        if key in data:
+            data[key] = [res[key], value]  # type: ignore[list-item]
+        else:
+            data[key] = value
+        return data
+
     for st in args:
         if st.startswith('-'):
             if '=' in st:
                 key, *value = st.split('=')
-                res[key] = '='.join(value)
+                res = insert(res, key, '='.join(value))
             else:
-                res[st] = True
+                res = insert(res, st, True)
     return res
 
 

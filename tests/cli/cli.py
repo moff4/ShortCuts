@@ -101,3 +101,23 @@ class RunCliTestCase(TestCase):
         self.assertIs(CMD_HANDLERS['cmd1'].model, ArgModel1)
         self.assertIs(CMD_HANDLERS['cmd2'].func, handler_2)
         self.assertIs(CMD_HANDLERS['cmd2'].model, ArgModel2)
+
+    def test_list_args(self):
+        CMD_HANDLERS.clear()
+
+        class ArgModel(BaseModel):
+            param: list[int] = Field(alias='--param')
+
+        @cli_handler('cmd1')
+        def handler_1(args: ArgModel):
+            self.assertEqual(args.param, [123, 456])
+
+        @cli_handler('cmd2')
+        def handler_2(args: ArgModel):
+            self.assertEqual(args.param, [123])
+
+        assert len(CMD_HANDLERS) == 2
+        self.assertIs(CMD_HANDLERS['cmd1'].func, handler_1)
+        self.assertIs(CMD_HANDLERS['cmd2'].func, handler_2)
+        run_args(['cmd1', '--param=123', '--param=456'])
+        run_args(['cmd2', '--param=123'])
